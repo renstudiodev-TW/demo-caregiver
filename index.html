@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:,">
+<title>吉翁人力仲介 — 專業居家看護服務</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Noto+Serif+TC:wght@400;600;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #2a7d6e;
+    --primary-dark: #1f5f53;
+    --primary-light: #e8f5f0;
+    --warm: #d4845a;
+    --warm-light: #fdf0e8;
+    --dark: #1a2332;
+    --white: #ffffff;
+    --off-white: #fafbfc;
+    --gray-50: #f5f6f8;
+    --gray-100: #e8eaed;
+    --gray-300: #c4c8ce;
+    --gray-500: #7a8190;
+    --gray-700: #4a5060;
+    --gray-900: #1a1d26;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Noto Sans TC', sans-serif; font-weight: 400;
+    color: var(--gray-900); background: var(--white);
+    line-height: 1.8; font-size: 15px;
+  }
+
+  /* ---- Nav ---- */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    background: rgba(255,255,255,0.97); backdrop-filter: blur(8px);
+    transition: box-shadow 0.3s;
+  }
+  nav.scrolled { box-shadow: 0 1px 12px rgba(0,0,0,0.06); }
+  .nav-inner {
+    max-width: 1100px; margin: 0 auto; padding: 0 28px;
+    height: 68px; display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo {
+    text-decoration: none; display: flex; align-items: center; gap: 10px;
+  }
+  .nav-logo-icon {
+    width: 38px; height: 38px; background: var(--primary); border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--white); font-size: 20px;
+  }
+  .nav-logo-text {
+    font-weight: 700; font-size: 17px; color: var(--dark); letter-spacing: 1px;
+  }
+  .nav-logo-text span {
+    display: block; font-weight: 400; font-size: 10px;
+    color: var(--gray-500); letter-spacing: 1px;
+  }
+  .nav-links { display: flex; gap: 28px; list-style: none; align-items: center; }
+  .nav-links a {
+    text-decoration: none; color: var(--gray-700); font-size: 14px;
+    font-weight: 500; transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--primary); }
+  .nav-cta {
+    background: var(--primary) !important; color: var(--white) !important;
+    padding: 10px 24px; border-radius: 8px; font-size: 13px !important;
+    font-weight: 600 !important;
+  }
+  .nav-cta:hover { background: var(--primary-dark) !important; }
+
+  /* ---- Hero ---- */
+  .hero {
+    min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr;
+    margin-top: 68px;
+  }
+  .hero-left {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 60px 48px 60px 0; max-width: 560px; margin-left: auto;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--primary-light); padding: 8px 16px; border-radius: 24px;
+    font-size: 13px; color: var(--primary); font-weight: 500;
+    margin-bottom: 28px; width: fit-content;
+  }
+  .hero h1 {
+    font-weight: 900; font-size: clamp(28px, 4.5vw, 44px);
+    line-height: 1.35; color: var(--dark); margin-bottom: 18px;
+  }
+  .hero h1 .accent { color: var(--primary); }
+  .hero-desc {
+    font-size: 15px; color: var(--gray-500); line-height: 1.9;
+    margin-bottom: 32px;
+  }
+  .hero-buttons { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 40px; }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 14px 32px; background: var(--primary); color: var(--white);
+    text-decoration: none; font-size: 14px; font-weight: 600;
+    border-radius: 8px; transition: background 0.3s;
+  }
+  .btn-primary:hover { background: var(--primary-dark); }
+  .btn-outline {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 14px 32px; border: 2px solid var(--primary); color: var(--primary);
+    text-decoration: none; font-size: 14px; font-weight: 600;
+    border-radius: 8px; transition: all 0.3s; background: transparent;
+  }
+  .btn-outline:hover { background: var(--primary); color: var(--white); }
+  .hero-trust {
+    display: flex; gap: 32px; flex-wrap: wrap;
+  }
+  .trust-item {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 13px; color: var(--gray-500);
+  }
+  .trust-check {
+    width: 20px; height: 20px; border-radius: 50%; background: var(--primary-light);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--primary); font-size: 12px; font-weight: 700;
+  }
+  .hero-right {
+    background: url('images/hero.jpg') center/cover no-repeat;
+    position: relative; min-height: 480px;
+  }
+  .hero-right::after {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+    width: 80px; background: linear-gradient(to right, var(--white), transparent);
+  }
+
+  /* ---- Section ---- */
+  .section { padding: 80px 28px; max-width: 1100px; margin: 0 auto; }
+  .section-label {
+    font-size: 13px; font-weight: 600; color: var(--primary);
+    letter-spacing: 2px; margin-bottom: 8px;
+  }
+  .section-title {
+    font-weight: 900; font-size: 30px; color: var(--dark);
+    margin-bottom: 12px;
+  }
+  .section-desc {
+    font-size: 15px; color: var(--gray-500); max-width: 540px; margin-bottom: 40px;
+  }
+
+  /* ---- Services ---- */
+  .services-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  }
+  .service-card {
+    background: var(--white); border: 1px solid var(--gray-100);
+    border-radius: 12px; overflow: hidden; transition: all 0.3s;
+  }
+  .service-card:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.06); transform: translateY(-4px); }
+  .service-card img { width: 100%; height: 200px; object-fit: cover; }
+  .service-card-body { padding: 24px; }
+  .service-card h3 {
+    font-weight: 700; font-size: 18px; color: var(--dark); margin-bottom: 8px;
+  }
+  .service-card p { font-size: 14px; color: var(--gray-500); line-height: 1.8; margin-bottom: 12px; }
+  .service-tag {
+    display: inline-block; padding: 4px 12px; background: var(--primary-light);
+    color: var(--primary); font-size: 12px; font-weight: 500; border-radius: 4px;
+    margin-right: 6px;
+  }
+
+  /* ---- Why Us ---- */
+  .why-bg { background: var(--gray-50); }
+  .why-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
+  }
+  .why-card { text-align: center; padding: 32px 20px; }
+  .why-icon {
+    width: 56px; height: 56px; border-radius: 14px; background: var(--primary-light);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 16px; font-size: 24px;
+  }
+  .why-card h4 { font-weight: 700; font-size: 16px; color: var(--dark); margin-bottom: 8px; }
+  .why-card p { font-size: 13px; color: var(--gray-500); line-height: 1.7; }
+
+  /* ---- Process ---- */
+  .process-steps {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+    position: relative;
+  }
+  .process-step {
+    background: var(--white); border: 1px solid var(--gray-100);
+    border-radius: 12px; padding: 28px 20px; text-align: center;
+    position: relative;
+  }
+  .process-step::after {
+    content: '→'; position: absolute; right: -14px; top: 50%;
+    transform: translateY(-50%); color: var(--gray-300); font-size: 18px;
+  }
+  .process-step:last-child::after { display: none; }
+  .step-num {
+    width: 36px; height: 36px; border-radius: 50%; background: var(--primary);
+    color: var(--white); display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 15px; margin: 0 auto 14px;
+  }
+  .process-step h4 { font-weight: 700; font-size: 15px; color: var(--dark); margin-bottom: 6px; }
+  .process-step p { font-size: 13px; color: var(--gray-500); line-height: 1.6; }
+
+  /* ---- Pricing ---- */
+  .pricing-bg { background: var(--gray-50); }
+  .pricing-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  }
+  .pricing-card {
+    background: var(--white); border: 1px solid var(--gray-100);
+    border-radius: 12px; padding: 32px; text-align: center;
+    transition: all 0.3s; position: relative;
+  }
+  .pricing-card.featured {
+    border-color: var(--primary); box-shadow: 0 4px 20px rgba(42,125,110,0.12);
+  }
+  .pricing-card.featured::before {
+    content: '最多人選擇'; position: absolute; top: -12px; left: 50%;
+    transform: translateX(-50%); background: var(--primary); color: var(--white);
+    padding: 4px 16px; border-radius: 12px; font-size: 11px; font-weight: 600;
+  }
+  .pricing-card h3 { font-weight: 700; font-size: 18px; color: var(--dark); margin-bottom: 8px; }
+  .pricing-card .price {
+    font-weight: 900; font-size: 36px; color: var(--primary); margin-bottom: 4px;
+  }
+  .pricing-card .price span { font-size: 14px; font-weight: 400; color: var(--gray-500); }
+  .pricing-card .price-note { font-size: 12px; color: var(--gray-500); margin-bottom: 20px; }
+  .pricing-features { list-style: none; text-align: left; margin-bottom: 24px; }
+  .pricing-features li {
+    padding: 8px 0; font-size: 14px; color: var(--gray-700);
+    border-bottom: 1px solid var(--gray-50); display: flex; gap: 8px; align-items: center;
+  }
+  .pricing-features li::before { content: '✓'; color: var(--primary); font-weight: 700; }
+
+  /* ---- FAQ ---- */
+  .faq-list { max-width: 760px; }
+  .faq-item {
+    border-bottom: 1px solid var(--gray-100); padding: 20px 0;
+  }
+  .faq-q {
+    font-weight: 700; font-size: 16px; color: var(--dark);
+    cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+  }
+  .faq-q::after { content: '+'; font-size: 20px; color: var(--primary); transition: transform 0.3s; }
+  .faq-q.open::after { transform: rotate(45deg); }
+  .faq-a {
+    font-size: 14px; color: var(--gray-500); line-height: 1.9;
+    max-height: 0; overflow: hidden; transition: max-height 0.3s, padding 0.3s;
+    padding-top: 0;
+  }
+  .faq-a.open { max-height: 300px; padding-top: 12px; }
+
+  /* ---- Testimonials ---- */
+  .testimonials-bg { background: var(--dark); }
+  .testimonials-bg .section-title { color: var(--white); }
+  .testimonials-bg .section-desc { color: rgba(255,255,255,0.5); }
+  .testimonials-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  }
+  .testimonial-card {
+    background: rgba(255,255,255,0.06); border-radius: 12px; padding: 28px;
+  }
+  .testimonial-stars { color: #f5c542; font-size: 14px; margin-bottom: 12px; letter-spacing: 2px; }
+  .testimonial-text {
+    font-size: 14px; color: rgba(255,255,255,0.75); line-height: 1.9; margin-bottom: 16px;
+  }
+  .testimonial-author { font-size: 14px; font-weight: 700; color: var(--white); }
+  .testimonial-role { font-size: 12px; color: rgba(255,255,255,0.4); }
+
+  /* ---- CTA ---- */
+  .cta-section {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    padding: 80px 28px; text-align: center;
+  }
+  .cta-section h2 {
+    font-weight: 900; font-size: 30px; color: var(--white); margin-bottom: 12px;
+  }
+  .cta-section p {
+    color: rgba(255,255,255,0.8); font-size: 16px; margin-bottom: 32px;
+  }
+  .cta-section .btn-white {
+    display: inline-flex; padding: 16px 40px; background: var(--white);
+    color: var(--primary); text-decoration: none; font-size: 15px;
+    font-weight: 700; border-radius: 8px; transition: all 0.3s;
+  }
+  .cta-section .btn-white:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
+
+  /* ---- Contact ---- */
+  .contact-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  }
+  .contact-card {
+    background: var(--gray-50); border-radius: 12px; padding: 28px; text-align: center;
+  }
+  .contact-icon {
+    width: 48px; height: 48px; border-radius: 12px; background: var(--primary-light);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 14px;
+  }
+  .contact-icon svg { width: 22px; height: 22px; stroke: var(--primary); stroke-width: 2; fill: none; }
+  .contact-card h4 { font-weight: 700; font-size: 15px; color: var(--dark); margin-bottom: 6px; }
+  .contact-card p { font-size: 13px; color: var(--gray-500); line-height: 1.7; }
+
+  /* ---- Footer ---- */
+  footer {
+    background: var(--dark); color: rgba(255,255,255,0.4);
+    padding: 40px 28px;
+  }
+  .footer-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-left { display: flex; align-items: center; gap: 12px; }
+  .footer-logo-icon {
+    width: 32px; height: 32px; background: var(--primary); border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--white); font-size: 16px;
+  }
+  .footer-name { font-weight: 700; font-size: 14px; color: var(--white); }
+  .footer-name span { display: block; font-weight: 400; font-size: 10px; color: rgba(255,255,255,0.3); }
+  .footer-right { text-align: right; font-size: 11px; }
+  .footer-right a { color: var(--primary); text-decoration: none; }
+
+  /* ---- Demo Banner ---- */
+  .demo-banner {
+    position: fixed; bottom: 0; width: 100%; z-index: 100;
+    background: var(--primary); color: var(--white);
+    text-align: center; padding: 10px; font-size: 13px;
+  }
+  .demo-banner a { color: var(--white); font-weight: 600; }
+
+  /* ---- Responsive ---- */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; margin-top: 68px; }
+    .hero-left { padding: 40px 28px; max-width: 100%; margin: 0; }
+    .hero-right { min-height: 300px; }
+    .hero-right::after { display: none; }
+    .nav-links { display: none; }
+    .services-grid { grid-template-columns: 1fr; }
+    .why-grid { grid-template-columns: 1fr 1fr; }
+    .process-steps { grid-template-columns: 1fr 1fr; }
+    .process-step::after { display: none; }
+    .pricing-grid { grid-template-columns: 1fr; }
+    .testimonials-grid { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .footer-inner { flex-direction: column; gap: 16px; text-align: center; }
+    .footer-right { text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <div class="nav-logo-icon">吉</div>
+      <div class="nav-logo-text">
+        吉翁人力仲介
+        <span>專業居家看護服務</span>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#services">服務項目</a></li>
+      <li><a href="#process">服務流程</a></li>
+      <li><a href="#pricing">收費方式</a></li>
+      <li><a href="#faq">常見問題</a></li>
+      <li><a href="#contact" class="nav-cta">立即諮詢</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-badge">🏥 政府立案合法人力仲介</div>
+    <h1>家人住院或需要照顧？<br><span class="accent">24 小時內為您媒合</span><br>專業看護人員</h1>
+    <div class="hero-desc">
+      吉翁人力仲介專注於居家看護與醫院看護人員媒合，所有看護皆經嚴格篩選與訓練。不論是臨時住院、術後返家或長期居家照顧，一通電話即刻為您安排。
+    </div>
+    <div class="hero-buttons">
+      <a href="tel:0976858794" class="btn-primary">📞 立即來電諮詢</a>
+      <a href="#services" class="btn-outline">瞭解服務內容</a>
+    </div>
+    <div class="hero-trust">
+      <div class="trust-item"><div class="trust-check">✓</div>政府合法立案</div>
+      <div class="trust-item"><div class="trust-check">✓</div>24hr 緊急派遣</div>
+      <div class="trust-item"><div class="trust-check">✓</div>免費需求評估</div>
+    </div>
+  </div>
+  <div class="hero-right"></div>
+</section>
+
+<!-- Services -->
+<div class="section" id="services">
+  <div class="section-label">服務項目</div>
+  <div class="section-title">我們提供的照護服務</div>
+  <div class="section-desc">針對不同情境的照護需求，提供專業且彈性的人力媒合方案。</div>
+
+  <div class="services-grid">
+    <div class="service-card">
+      <img src="images/service1.jpg" alt="居家照護">
+      <div class="service-card-body">
+        <h3>居家照護</h3>
+        <p>協助日常生活起居、餐食準備、用藥提醒、陪伴散步與簡易復健運動。讓長輩在最熟悉的家中安心生活。</p>
+        <span class="service-tag">半日班</span>
+        <span class="service-tag">全日班</span>
+        <span class="service-tag">24H 住家</span>
+      </div>
+    </div>
+    <div class="service-card">
+      <img src="images/service2.jpg" alt="醫院看護">
+      <div class="service-card-body">
+        <h3>醫院住院看護</h3>
+        <p>家人臨時住院、開刀或加護病房轉出，我們提供經驗豐富的醫院看護，協助翻身、灌食、管路照護等專業照顧。</p>
+        <span class="service-tag">臨時派遣</span>
+        <span class="service-tag">12H 白班</span>
+        <span class="service-tag">24H 全天</span>
+      </div>
+    </div>
+    <div class="service-card">
+      <img src="images/service3.jpg" alt="術後照護">
+      <div class="service-card-body">
+        <h3>術後 / 出院返家照護</h3>
+        <p>手術後返家的過渡期最需要專業協助。傷口照護、換藥提醒、復健協助、陪同回診，讓家屬安心回歸工作。</p>
+        <span class="service-tag">短期 1-4 週</span>
+        <span class="service-tag">彈性時數</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Why Us -->
+<section class="why-bg">
+  <div class="section">
+    <div class="section-label">為什麼選擇吉翁</div>
+    <div class="section-title">我們的四大堅持</div>
+    <div class="section-desc"></div>
+
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon">🔍</div>
+        <h4>嚴格篩選</h4>
+        <p>每位看護皆經身分查核、健康檢查、專業證照確認及面試篩選，確保服務品質</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">⚡</div>
+        <h4>快速媒合</h4>
+        <p>接獲需求後 24 小時內安排人員到位，臨時住院也能即時應對</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🔄</div>
+        <h4>免費更換</h4>
+        <p>服務期間如有不適合，可免費更換看護人員，直到家屬滿意為止</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">📋</div>
+        <h4>透明報價</h4>
+        <p>收費方式公開透明，無隱藏費用。簽約前提供完整報價單，逐項說明</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Process -->
+<div class="section" id="process">
+  <div class="section-label">服務流程</div>
+  <div class="section-title">四步驟，快速為您安排照護</div>
+  <div class="section-desc"></div>
+
+  <div class="process-steps">
+    <div class="process-step">
+      <div class="step-num">1</div>
+      <h4>來電諮詢</h4>
+      <p>撥打服務專線或 LINE 聯繫，說明照護需求與期望時段</p>
+    </div>
+    <div class="process-step">
+      <div class="step-num">2</div>
+      <h4>需求評估</h4>
+      <p>專員了解被照顧者的身體狀況、生活習慣，提供適合的照護方案</p>
+    </div>
+    <div class="process-step">
+      <div class="step-num">3</div>
+      <h4>人員媒合</h4>
+      <p>依需求媒合合適的看護人員，可安排事前會面確認</p>
+    </div>
+    <div class="process-step">
+      <div class="step-num">4</div>
+      <h4>開始服務</h4>
+      <p>看護到府或到院服務，服務期間專員持續關懷回訪</p>
+    </div>
+  </div>
+</div>
+
+<!-- Pricing -->
+<section class="pricing-bg">
+  <div class="section" id="pricing">
+    <div class="section-label">收費方式</div>
+    <div class="section-title">公開透明的收費標準</div>
+    <div class="section-desc">以下為基本參考價格，實際費用依照護需求與時數調整，歡迎來電詢問。</div>
+
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <h3>醫院看護</h3>
+        <div class="price">$2,400 <span>/ 日</span></div>
+        <div class="price-note">24 小時全天看護</div>
+        <ul class="pricing-features">
+          <li>協助翻身、拍背</li>
+          <li>管路照護（鼻胃管、尿管等）</li>
+          <li>灌食、餵食、口腔清潔</li>
+          <li>陪同檢查、復健</li>
+          <li>臨時需求 24hr 內到位</li>
+        </ul>
+        <a href="#contact" class="btn-primary" style="width:100%;justify-content:center;">立即諮詢</a>
+      </div>
+      <div class="pricing-card featured">
+        <h3>居家全日看護</h3>
+        <div class="price">$2,800 <span>/ 日</span></div>
+        <div class="price-note">24 小時住家照護</div>
+        <ul class="pricing-features">
+          <li>日常生活起居協助</li>
+          <li>餐食準備與餵食</li>
+          <li>用藥提醒與紀錄</li>
+          <li>陪伴散步、簡易復健</li>
+          <li>夜間照護與緊急應對</li>
+          <li>環境整理（照護範圍內）</li>
+        </ul>
+        <a href="#contact" class="btn-primary" style="width:100%;justify-content:center;">立即諮詢</a>
+      </div>
+      <div class="pricing-card">
+        <h3>居家半日看護</h3>
+        <div class="price">$1,600 <span>/ 日</span></div>
+        <div class="price-note">12 小時日間照護</div>
+        <ul class="pricing-features">
+          <li>白天時段生活協助</li>
+          <li>陪同就醫、復健</li>
+          <li>餐食準備（午餐 + 晚餐）</li>
+          <li>用藥提醒</li>
+          <li>適合家屬白天上班情境</li>
+        </ul>
+        <a href="#contact" class="btn-primary" style="width:100%;justify-content:center;">立即諮詢</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials -->
+<section class="testimonials-bg">
+  <div class="section">
+    <div class="section-label" style="color:rgba(255,255,255,0.5)">家屬回饋</div>
+    <div class="section-title">他們都選擇吉翁</div>
+    <div class="section-desc"></div>
+
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <div class="testimonial-text">爸爸突然中風住院，當天下午打電話給吉翁，晚上看護就到醫院了。照顧得非常細心，我們白天才能安心上班。真的很感謝。</div>
+        <div class="testimonial-author">陳小姐</div>
+        <div class="testimonial-role">高雄市 · 醫院看護 14 天</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <div class="testimonial-text">媽媽髖關節手術後回家需要人照顧，吉翁派來的看護阿姨非常有經驗，連復健動作都會指導。一個月後媽媽恢復得很好，超過預期。</div>
+        <div class="testimonial-author">林先生</div>
+        <div class="testimonial-role">台南市 · 術後居家照護 30 天</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <div class="testimonial-text">找了好幾家仲介，吉翁是唯一願意先來家裡評估阿嬤狀況再報價的。收費透明，沒有亂加錢，看護也很有耐心。已經推薦給好幾個朋友了。</div>
+        <div class="testimonial-author">王太太</div>
+        <div class="testimonial-role">高雄市 · 居家全日看護 持續中</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<div class="section" id="faq">
+  <div class="section-label">常見問題</div>
+  <div class="section-title">家屬常問的問題</div>
+  <div class="section-desc"></div>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <div class="faq-q">看護人員都有什麼資格？</div>
+      <div class="faq-a">我們的看護皆持有照顧服務員結業證書，並通過身分查核、健康檢查與面試。部分資深看護具備護理師或護士執照。所有人員皆投保意外險與專業責任險。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">臨時需要看護，最快多久可以到？</div>
+      <div class="faq-a">一般情況下，接獲需求後 24 小時內即可安排看護到位。若為緊急住院情況，我們會盡全力在當天內協調人員前往。建議盡早來電，越早聯繫越能確保及時安排。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">如果對看護不滿意可以換人嗎？</div>
+      <div class="faq-a">可以。服務期間若家屬或被照顧者對看護人員有任何不適應，可免費更換，我們會重新媒合更適合的人選。您的滿意是我們最重要的事。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">費用怎麼計算？需要預付嗎？</div>
+      <div class="faq-a">費用依照護類型（居家/醫院）、時數（半日/全日）及照護複雜度計算。簽約前會提供完整報價單。一般採預付制，以週或月為單位收費，可開立收據。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">服務範圍涵蓋哪些地區？</div>
+      <div class="faq-a">目前主要服務高雄市全區與台南市區。其他南部地區（屏東、嘉義）視個案情況評估，歡迎來電確認。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">可以只請幾天嗎？有最低天數限制嗎？</div>
+      <div class="faq-a">醫院看護最低 1 天起跳，居家看護最低 3 天。短期需求（例如住院 3-5 天）我們也能安排，不會強制簽長約。</div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2>需要照護協助？現在就聯繫我們</h2>
+  <p>免費諮詢、免費評估，一通電話為您的家人安排最合適的照護</p>
+  <a href="tel:0976858794" class="btn-white">📞 0976-858-794 立即來電</a>
+</section>
+
+<!-- Contact -->
+<div class="section" id="contact">
+  <div class="section-label">聯絡方式</div>
+  <div class="section-title">聯繫吉翁</div>
+  <div class="section-desc"></div>
+
+  <div class="contact-grid">
+    <div class="contact-card">
+      <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+      <h4>服務專線</h4>
+      <p>0976-858-794<br>週一至週六 08:00-20:00<br>緊急需求不限時段</p>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+      <h4>Email / LINE</h4>
+      <p>ren.studio.dev@gmail.com<br>LINE ID：renstudio.tw<br>歡迎傳訊息諮詢</p>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg></div>
+      <h4>服務據點</h4>
+      <p>高雄市前金區中正四路 211 號<br>台南市東區聯繫處<br>到府評估免出勤費</p>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-left">
+      <div class="footer-logo-icon">吉</div>
+      <div class="footer-name">
+        吉翁人力仲介
+        <span>專業居家看護服務</span>
+      </div>
+    </div>
+    <div class="footer-right">
+      <div>© 2026 吉翁人力仲介. All rights reserved.</div>
+      <div>Demo website by <a href="https://renstudio.tw">Ren Studio 仁格數位科技工坊</a></div>
+    </div>
+  </div>
+</footer>
+
+<!-- Demo Banner -->
+<div class="demo-banner">
+  此為 <a href="https://renstudio.tw">Ren Studio</a> 製作之網站展示範例，非真實公司
+</div>
+
+<script>
+  // Nav scroll
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50)
+  })
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-q').forEach(q => {
+    q.addEventListener('click', () => {
+      const a = q.nextElementSibling
+      const isOpen = q.classList.contains('open')
+      // Close all
+      document.querySelectorAll('.faq-q').forEach(qq => qq.classList.remove('open'))
+      document.querySelectorAll('.faq-a').forEach(aa => aa.classList.remove('open'))
+      // Toggle current
+      if (!isOpen) {
+        q.classList.add('open')
+        a.classList.add('open')
+      }
+    })
+  })
+</script>
+
+</body>
+</html>
