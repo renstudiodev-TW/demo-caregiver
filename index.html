@@ -2,9 +2,10 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" href="data:,">
-<title>吉翁人力仲介 — 專業居家看護服務</title>
+<title>【示範網站】吉翁人力仲介 — 專業居家看護服務</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Noto+Serif+TC:wght@400;600;900&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -322,13 +323,6 @@
   .footer-right { text-align: right; font-size: 11px; }
   .footer-right a { color: var(--primary); text-decoration: none; }
 
-  /* ---- Demo Banner ---- */
-  .demo-banner {
-    position: fixed; bottom: 0; width: 100%; z-index: 100;
-    background: var(--primary); color: var(--white);
-    text-align: center; padding: 10px; font-size: 13px;
-  }
-  .demo-banner a { color: var(--white); font-weight: 600; }
 
   /* ---- Responsive ---- */
   @media (max-width: 900px) {
@@ -347,9 +341,53 @@
     .footer-inner { flex-direction: column; gap: 16px; text-align: center; }
     .footer-right { text-align: center; }
   }
+
+  /* ---- Demo Notice (top bar + dialog) ---- */
+  :root { --demo-h: 78px; }
+  @media (min-width: 769px) { :root { --demo-h: 44px; } }
+  body { padding-top: var(--demo-h); }
+  .demo-bar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    background: var(--dark); color: var(--white);
+    border-bottom: 3px solid #f5c542;
+    padding: 8px 14px; font-size: 14px; line-height: 1.5; text-align: center;
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 2px 14px;
+  }
+  .demo-bar b { color: #f5c542; font-weight: 700; }
+  .demo-bar a { color: #f5c542; font-weight: 700; text-decoration: underline; white-space: nowrap; }
+  @media (min-width: 769px) { .demo-bar { font-size: 15px; } }
+  .demo-modal {
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 2000;
+    background: rgba(0,0,0,0.65); display: flex; align-items: flex-start; justify-content: center;
+    overflow-y: auto; padding: 16px;
+  }
+  .demo-modal[hidden] { display: none; }
+  .demo-modal-card {
+    margin: auto; width: 100%; max-width: 520px; background: var(--white); color: var(--gray-900);
+    border-top: 6px solid #f5c542; border-radius: 12px; padding: 26px 22px 22px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.35); font-size: 15px; line-height: 1.8; text-align: left;
+  }
+  .demo-modal-card h2 { font-size: 22px; line-height: 1.4; color: var(--primary-dark); margin-bottom: 12px; }
+  .demo-modal-card p { margin: 0 0 12px; }
+  .demo-modal-box { background: var(--primary-light); border-radius: 12px; padding: 14px 16px; margin: 16px 0 18px; font-size: 14px; line-height: 1.9; }
+  .demo-modal-box strong { display: block; margin-bottom: 6px; color: var(--primary-dark); }
+  .demo-modal-box a { color: var(--primary-dark); font-weight: 700; word-break: break-all; }
+  .demo-modal-ok {
+    display: block; width: 100%; padding: 12px 16px; font-size: 16px; font-weight: 700; font-family: inherit;
+    background: var(--primary); color: var(--white); border: 0; border-radius: 12px; cursor: pointer;
+  }
+  .demo-modal-ok:focus-visible, .demo-modal-box a:focus-visible { outline: 3px solid #f5c542; outline-offset: 2px; }
+  .demo-note { font-size: 13px; margin: 0 0 24px; }
+  nav { top: var(--demo-h); }
 </style>
 </head>
 <body>
+<!-- Demo Notice Bar -->
+<div class="demo-bar" id="demoBar" role="region" aria-label="示範網站說明">
+  <span><b>⚠ 示範網站</b>｜「吉翁人力仲介」是 Ren Studio 製作的虛構品牌，不是真實公司，無法提供看護服務</span>
+  <a href="https://renstudio.tw" target="_blank" rel="noopener">想做這樣的網站？聯絡 Ren Studio</a>
+</div>
+
 
 <!-- Nav -->
 <nav id="navbar">
@@ -380,7 +418,7 @@
       吉翁人力仲介專注於居家看護與醫院看護人員媒合，所有看護皆經嚴格篩選與訓練。不論是臨時住院、術後返家或長期居家照顧，一通電話即刻為您安排。
     </div>
     <div class="hero-buttons">
-      <a href="tel:0976858794" class="btn-primary">📞 立即來電諮詢</a>
+      <a href="#demoModal" class="btn-primary" role="button" data-demo-open>📞 立即來電諮詢</a>
       <a href="#services" class="btn-outline">瞭解服務內容</a>
     </div>
     <div class="hero-trust">
@@ -551,6 +589,7 @@
     <div class="section-label" style="color:rgba(255,255,255,0.5)">家屬回饋</div>
     <div class="section-title">他們都選擇吉翁</div>
     <div class="section-desc"></div>
+    <div class="demo-note" style="color:rgba(255,255,255,0.75)">以下評價為示範內容，並非真實客戶</div>
 
     <div class="testimonials-grid">
       <div class="testimonial-card">
@@ -613,7 +652,7 @@
 <section class="cta-section">
   <h2>需要照護協助？現在就聯繫我們</h2>
   <p>免費諮詢、免費評估，一通電話為您的家人安排最合適的照護</p>
-  <a href="tel:0976858794" class="btn-white">📞 0976-858-794 立即來電</a>
+  <a href="#demoModal" class="btn-white" role="button" data-demo-open>📞 07-000-0000（示範號碼）立即來電</a>
 </section>
 
 <!-- Contact -->
@@ -626,17 +665,17 @@
     <div class="contact-card">
       <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
       <h4>服務專線</h4>
-      <p>0976-858-794<br>週一至週六 08:00-20:00<br>緊急需求不限時段</p>
+      <p>07-000-0000（示範號碼）<br>週一至週六 08:00-20:00<br>緊急需求不限時段</p>
     </div>
     <div class="contact-card">
       <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
       <h4>Email / LINE</h4>
-      <p>ren.studio.dev@gmail.com<br>LINE ID：renstudio.tw<br>歡迎傳訊息諮詢</p>
+      <p>service@example.com（示範）<br>LINE：示範帳號<br>以上皆為示範資訊</p>
     </div>
     <div class="contact-card">
       <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg></div>
       <h4>服務據點</h4>
-      <p>高雄市前金區中正四路 211 號<br>台南市東區聯繫處<br>到府評估免出勤費</p>
+      <p>高雄市示範區範例路 1 號（虛構地址）<br>台南市示範區聯繫處<br>到府評估免出勤費</p>
     </div>
   </div>
 </div>
@@ -652,16 +691,12 @@
       </div>
     </div>
     <div class="footer-right">
-      <div>© 2026 吉翁人力仲介. All rights reserved.</div>
-      <div>Demo website by <a href="https://renstudio.tw">Ren Studio 仁格數位科技工坊</a></div>
+      <div>© 2026 示範網站．「吉翁人力仲介」為虛構品牌</div>
+      <div>網站製作：<a href="https://renstudio.tw">Ren Studio 仁格數位科技工坊</a></div>
     </div>
   </div>
 </footer>
 
-<!-- Demo Banner -->
-<div class="demo-banner">
-  此為 <a href="https://renstudio.tw">Ren Studio</a> 製作之網站展示範例，非真實公司
-</div>
 
 <script>
   // Nav scroll
@@ -686,5 +721,69 @@
   })
 </script>
 
+<!-- Demo Notice Dialog -->
+<div class="demo-modal" id="demoModal" role="dialog" aria-modal="true" aria-labelledby="demoTitle" hidden>
+  <div class="demo-modal-card">
+    <h2 id="demoTitle">這是示範網站</h2>
+    <p>「吉翁人力仲介」是 Ren Studio 製作的虛構品牌，不是真實公司，無法提供看護服務。頁面上的電話、地址、Email 等聯絡資訊都不是真實公司資訊，請勿撥打或前往。</p>
+    <div class="demo-modal-box">
+      <strong>想製作類似網站或購買此網站版型，歡迎聯絡 Ren Studio 仁格數位科技工坊</strong>
+      電話：<a href="tel:0976858794">0976-858-794</a><br>
+      Email：<a href="mailto:ren.studio.dev@gmail.com">ren.studio.dev@gmail.com</a><br>
+      官網：<a href="https://renstudio.tw" target="_blank" rel="noopener">https://renstudio.tw</a>
+    </div>
+    <button type="button" class="demo-modal-ok" id="demoOk">我知道了，繼續瀏覽</button>
+  </div>
+</div>
+
+<script>
+(function () {
+  var KEY = 'demoNoticeSeen';
+  var bar = document.getElementById('demoBar');
+  function sync() {
+    if (bar) document.documentElement.style.setProperty('--demo-h', bar.offsetHeight + 'px');
+  }
+  if (bar) {
+    sync();
+    window.addEventListener('resize', sync);
+    if (window.ResizeObserver) new ResizeObserver(sync).observe(bar);
+  }
+  var modal = document.getElementById('demoModal');
+  if (!modal) return;
+  var okBtn = document.getElementById('demoOk');
+  var lastFocus = null;
+  function seen() { try { return sessionStorage.getItem(KEY) === '1'; } catch (e) { return false; } }
+  function mark() { try { sessionStorage.setItem(KEY, '1'); } catch (e) {} }
+  function openModal() {
+    lastFocus = document.activeElement;
+    modal.hidden = false;
+    document.body.style.overflow = 'hidden';
+    okBtn.focus();
+  }
+  function closeModal() {
+    modal.hidden = true;
+    document.body.style.overflow = '';
+    mark();
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  okBtn.addEventListener('click', closeModal);
+  modal.addEventListener('click', function (e) { if (e.target === modal) closeModal(); });
+  document.addEventListener('keydown', function (e) {
+    if (modal.hidden) return;
+    if (e.key === 'Escape') { closeModal(); return; }
+    if (e.key === 'Tab') {
+      var items = modal.querySelectorAll('a[href], button');
+      var first = items[0], last = items[items.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+  });
+  var openers = document.querySelectorAll('[data-demo-open]');
+  for (var i = 0; i < openers.length; i++) {
+    openers[i].addEventListener('click', function (e) { e.preventDefault(); openModal(); });
+  }
+  if (!seen()) openModal();
+})();
+</script>
 </body>
 </html>
